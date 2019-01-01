@@ -1,0 +1,16 @@
+figure
+i=1;
+fold_name='austra_2.mat';
+axis_setting=[0,60,0.45,1];
+smooth_th=1; 
+ex_choose=[1,9,4,5,6];
+[accuracy_tmp,experiment_result_performance]=state_comp(fold_name,ex_choose,axis_setting,smooth_th);
+[mean_m,std_m]=add_mat(experiment_result_performance,ex_choose);
+mat3=cell(1,2);
+mat3{1,1}=mat2{i,1};
+mat3{1,1}(7,:)=mean_m;
+mat3{1,2}=mat2{i,2};
+mat3{1,2}(7,:)=std_m;
+[mat3,score_block,wlt_block,block_Z,block_R,block_B,block_X]=ttest2_block_invert(mat3,10,7);
+r=[sum(wlt_block.win,2),sum(wlt_block.tie,2),sum(wlt_block.lose,2)];
+r1=sum(r,1)
